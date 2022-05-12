@@ -1,6 +1,6 @@
 {
 	"name": "@lubowiecki/node-utility",
-	"version": "1.0.4",
+	"version": "1.0.3",
 	"description": "Node utility",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
