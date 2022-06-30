@@ -41,8 +41,10 @@ export class HttpAdapters {
 		modifyResponse(res, proxyRes, (body: any) => {
 			let stringifiedBody: string = '';
 
-			if (body) {
+			if (body !== null && body !== undefined) {
 				stringifiedBody = HttpAdapters.stringifyBody(newBody);
+			} else {
+				Notify.error({ message: 'Parameter \'body\' is not defined.' });
 			}
 
 			return stringifiedBody;
@@ -53,13 +55,15 @@ export class HttpAdapters {
 		modifyResponse(res, proxyRes, (body: any) => {
 			let stringifiedBody: string = '';
 
-			if (body) {
+			if (body !== null && body !== undefined) {
 				try {
 					const file = readJsonSync(newBodyUrl);
 					stringifiedBody = HttpAdapters.stringifyBody(file);
 				} catch (e) {
 					Notify.error({ message: `Can't read file: ${newBodyUrl}` });
 				}
+			} else {
+				Notify.error({ message: 'Parameter \'body\' is not defined.' });
 			}
 
 			return stringifiedBody;
@@ -69,13 +73,16 @@ export class HttpAdapters {
 	static stringifyBody(body: any): string {
 		let stringifiedBody: string = '';
 
-		if (body) {
+		if (body !== null && body !== undefined) {
 			try {
 				stringifiedBody = JSON.stringify(body);
 			} catch (e) {
-				Notify.error({ message: "Can't stringify newBody" });
+				Notify.error({ message: 'Can\'t stringify newBody' });
 			}
+		} else {
+			Notify.error({ message: 'Parameter \'body\' is not defined.' });
 		}
+
 		return stringifiedBody;
 	}
 }
